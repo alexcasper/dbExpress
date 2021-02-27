@@ -25,3 +25,11 @@ This line will respond to any *get* request made to the location specified in th
 This line above will then instruct to listen on the following port, and let you know it's listening. Your computer has a number of different ports which different services use. 3000 is normally one used for development.
 
 Add ```<h1>hi</h1>``` to **index.html** to make sure it's working. You can use ```node index.js``` to start the server, then use the link provided or go to http://localhost:3000 in your browser to check it's working. Your computer is simulating two servers - index.js is acting as a server, whereas your browser is acting as a client.
+
+To make this a little clearer, let's rename **index.js** as **server.js**. You can do this on the command line using ```mv index.js server.js``` Under the ```package.json``` file, you can specify the entrypoint for the script also. You can change the 'scripts' section to the following to make ```npm start```
+``` 
+"scripts": {
+    "start": "node server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+```
