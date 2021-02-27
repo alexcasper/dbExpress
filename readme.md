@@ -33,3 +33,7 @@ To make this a little clearer, let's rename **index.js** as **server.js**. You c
     "test": "echo \"Error: no test specified\" && exit 1"
   }
 ```
+
+We're also going to produce a separate file to include our Database instructions. Use ```touch dbAccess.js``` or create a new file called **dbAccess.js** manually. We do this to isolate our database commands from our routes, unless we want to go and switch to another database later. Effecctively we separate our front facing code ( **server.js** which is going to focus on talking to the end user) and our back facing code ( **dbAccess.js** which includes database instructions.) 
+
+We add ```var sqlite3 = require('sqlite3').verbose()``` to the **dbAccess.js** file. Then, in the terminal, we type ```npm install sqlite3``` to install SQLite, a lightweight SQL Database.
