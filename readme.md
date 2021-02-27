@@ -37,3 +37,31 @@ To make this a little clearer, let's rename **index.js** as **server.js**. You c
 We're also going to produce a separate file to include our Database instructions. Use ```touch dbAccess.js``` or create a new file called **dbAccess.js** manually. We do this to isolate our database commands from our routes, unless we want to go and switch to another database later. Effecctively we separate our front facing code ( **server.js** which is going to focus on talking to the end user) and our back facing code ( **dbAccess.js** which includes database instructions.) 
 
 We add ```var sqlite3 = require('sqlite3').verbose()``` to the **dbAccess.js** file. Then, in the terminal, we type ```npm install sqlite3``` to install SQLite, a lightweight SQL Database.
+
+Make a new folder called **db** in the root directory. This is going to store the SQLite database - note SQLite works differently to most databases, where the database is on a seperate computer to the server handling web requests. Here, the database is just stored in a file. We do this to prevent you the trouble of setting up a seperate database server.
+
+In **dbAccess.js**, create a function called *connection()* . Inside the function block, define a new variable called db and set it to return a new sqlite database using sqlite3's *Database()* method.
+```
+function connect () {
+    let db = new sqlite3.Database()
+}
+```
+Into the Database method, we put the first parameter, which is the address of the file used as the database. Note that while the database file doesn't need to exist, if the folder doesn't exist, this will throw an error. Node this creates a database connection, not a new database, though confusingly, if there is no database to connect to, it will create one.
+
+```
+function connect () {
+    let db = new sqlite3.Database('db/database.sqlite',)
+}
+```
+The second argument is going to be a function that runs when the database is created. If there's an error, we want to log the error, else we want to console log that the connection is working. We also want to return the database so it can be used by other functions.
+```
+function connect() {
+  let db = new sqlite3.Database('./db/database.sqlite',function (err)  {
+    if (err) {
+      return console.error(err.message);
+    }
+    console.log('Connected to the SQlite database.');
+  });
+  return db;
+}
+```
